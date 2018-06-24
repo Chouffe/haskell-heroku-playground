@@ -20,6 +20,7 @@ jobs:
       - restore-cache:
           keys:
             - hskpackages-{{ checksum "stack.yaml" }}-{{ checksum "package.yaml" }}
+      - run: stack build
       - run: stack test
       - save-cache:
           key: hskpackages-{{ checksum "stack.yaml" }}-{{ checksum "package.yaml" }}

@@ -64,6 +64,6 @@ packages:
 #
 # Allow a newer minor version of GHC than the snapshot specifies
 # compiler-check: newer-minor
-# Learn how to deploy with docker to heroku with circleci....
+# Learn how to deploy with docker to heroku with circleci.....
 # docker:
 #   enable: true
