@@ -4,23 +4,25 @@ jobs:
     machine: true
     steps:
       - checkout
-      - restore-cache:
-          keys:
-            - stack-{{ checksum "stack.yaml" }}
-            - stackwork-{{ checksum "stack.yaml" }}-{{ checksum "package.yaml" }}
       - run: wget https://github.com/commercialhaskell/stack/releases/download/v1.6.1/stack-1.6.1-linux-x86_64.tar.gz -O /tmp/stack.tar.gz
       - run: sudo mkdir /tmp/stack-download
       - run: sudo tar -xzf /tmp/stack.tar.gz -C /tmp/stack-download
       - run: sudo chmod +x /tmp/stack-download/stack-1.6.1-linux-x86_64/stack
       - run: sudo mv /tmp/stack-download/stack-1.6.1-linux-x86_64/stack /usr/bin/stack
+      - restore-cache:
+          keys:
+            - stack-{{ checksum "stack.yaml" }}
       - run: stack setup --no-reinstall
-      - run: stack test
       - save-cache:
           key: stack-{{ checksum "stack.yaml" }}
           paths:
             - "~/.stack"
+      - restore-cache:
+          keys:
+            - hskpackages-{{ checksum "stack.yaml" }}-{{ checksum "package.yaml" }}
+      - run: stack test
       - save-cache:
-          key: stackwork-{{ checksum "stack.yaml" }}-{{ checksum "package.yaml" }}
+          key: hskpackages-{{ checksum "stack.yaml" }}-{{ checksum "package.yaml" }}
           paths:
             - ".stack-work"
 workflows:
