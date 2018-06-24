@@ -54,7 +54,7 @@ fullServer _ = ( pingHandler )
 
 -- Handlers
 pingHandler :: Handler String
-pingHandler = return "pong!"
+pingHandler = return "pong"
 
 runServer :: Environment -> IO ()
 runServer env = do
