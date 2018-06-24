@@ -5,11 +5,11 @@ jobs:
     steps:
       - checkout
       - restore-cache:
-        keys:
-          - stack-{{ checksum "stack.yaml" }}
+          keys:
+            - stack-{{ checksum "stack.yaml" }}
       - restore-cache:
-        keys:
-          - stack-{{ checksum "stack.yaml" }}-{{ checksum "package.yaml"}}
+          keys:
+            - stack-{{ checksum "stack.yaml" }}-{{ checksum "package.yaml"}}
       - run: wget https://github.com/commercialhaskell/stack/releases/download/v1.6.1/stack-1.6.1-linux-x86_64.tar.gz -O /tmp/stack.tar.gz
       - run: sudo mkdir /tmp/stack-download
       - run: sudo tar -xzf /tmp/stack.tar.gz -C /tmp/stack-download
@@ -18,13 +18,13 @@ jobs:
       - run: stack setup
       - run: stack test
       - save-cache:
-        key: stack-{{ checksum "stack.yaml" }}
-        paths:
-          - "~/.stack"
+          key: stack-{{ checksum "stack.yaml" }}
+          paths:
+            - "~/.stack"
       - save-cache:
-        key: stack-{{ checksum "stack.yaml" }}-{{ checksum "package.yaml"}}
-        paths:
-          - ".stack-work"
+          key: stack-{{ checksum "stack.yaml" }}-{{ checksum "package.yaml"}}
+          paths:
+            - ".stack-work"
       - run: echo “Hello”
 workflows:
   version: 2
